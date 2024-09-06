@@ -8,7 +8,7 @@ const GetWorkForce = () => {
   useEffect(()=>{
     try{
       const fetchData=async()=>{
-        const response=await axios.get("http://localhost:5000/api/v1/work/get-workforce",{
+        const response=await axios.get("https://handy-hub-backened-2.onrender.com/api/v1/work/get-workforce",{
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
       

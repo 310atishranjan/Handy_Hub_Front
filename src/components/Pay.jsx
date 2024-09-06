@@ -15,7 +15,7 @@ const Pay = () => {
       e.preventDefault();
       try{
         const response = await axios.post(
-          "http://localhost:5000/api/v1/work/pay",
+          "https://handy-hub-backened-2.onrender.com/api/v1/work/pay",
           { name,address,mobileNo,work,workforceid,totalamount,workpay,hourtowork},
           {
             withCredentials: true,

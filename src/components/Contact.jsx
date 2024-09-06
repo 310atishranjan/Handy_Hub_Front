@@ -13,7 +13,7 @@ const Contact = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try{
-      await axios.post("http://localhost:5000/api/v1/work/contact",contact,
+      await axios.post("https://handy-hub-backened-2.onrender.com/api/v1/work/contact",contact,
       {
         withCredentials: true,
         headers: { "Content-Type": "application/json" },
