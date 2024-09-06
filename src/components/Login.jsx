@@ -43,7 +43,7 @@ const Login = ({ onClose }) => {
             value={mobileNo}
             type="text"
             onChange={(e) => setMobileNo(e.target.value)}
-            className='h-12 w-56 text-center mb-4 border-2 border-red-300 rounded text-black'
+            className='h-12 w-52 text-center mb-4 border-2 border-red-300 rounded text-black'
           />
         </div>
         <div>
@@ -52,7 +52,7 @@ const Login = ({ onClose }) => {
             value={password}
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-            className='h-12 w-56 text-center mb-4 border-2 border-red-300 rounded text-black'
+            className='h-12 w-52 text-center mb-4 border-2 border-red-300 rounded text-black'
           />
         </div>
         <div className='flex justify-center'>
