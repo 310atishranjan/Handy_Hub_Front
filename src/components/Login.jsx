@@ -12,14 +12,15 @@ const Login = ({ onClose }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://handy-hub-backened-2.onrender.com/api/v1/user/login",
+        "https://handy-hub-backened-2-z771.onrender.com/api/v1/user/login",
         { mobileNo, password },
         {
+          method: 'POST',
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         }
       );
-
+      
       toast.success("Login success");
       localStorage.setItem("token", response.data.token);
       setMobileNo('');

@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 
 const MODAL_STYLES = {
   position: 'fixed',
-  top: '60%',
+  top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  backgroundColor: 'rgb(34, 34, 34)',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
   zIndex: 1000,
   padding: '20px',
   borderRadius: '8px',
