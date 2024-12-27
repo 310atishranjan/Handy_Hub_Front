@@ -10,7 +10,7 @@ const Pay = () => {
     const [mobileNo,setmobileNo]=useState('');
     const [work,setwork]=useState('');
     const [workforceid,setworkforceid]=useState('');
-    
+    const [rating,setrating]=useState(false);
     const handleSubmit=async(e)=>{
       e.preventDefault();
       try{
@@ -22,10 +22,37 @@ const Pay = () => {
             headers: { "Content-Type": "application/json" },
           }
         )
+        setname('');
+        setaddress('');
+        setmobileNo('');
+        setwork('');
+        // setworkforceid('');
+        settotal('');
+        setworkpay('');
+        sethourtowork('');
         toast.success(response.data.message);
+        // nav('');
+        setrating(true);
       }catch(err){
         toast.error("pay failed");
       }
+    }
+    const [rate,setrate]=useState(0);
+    const handleSubmitR=async()=>{
+     try{
+         const response=await axios.post('http://localhost:5000/api/v1/user/rating',{
+             rate:rate,
+             id:workforceid,
+         });
+         if(response.data.status==200){
+             toast.success("THANKS FOR RATING")
+         }
+     }catch(err){
+         console.log(err);
+     }
+    }
+    const handleChange=(e)=>{
+     setrate(e.target.value);
     }
     useEffect(() => {
         settotal(hourtowork * workpay);
@@ -48,6 +75,20 @@ const Pay = () => {
 
         </div>
         </form>
+        {rating?
+        <div className="flex flex-col justify-center items-center h-screen w-screen">
+        <h1 className="mb-4">Rating Field</h1>
+        <div className="mb-4">
+            <select value={rate} onChange={handleChange}>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+            </select>
+        </div>
+        <button onClick={handleSubmitR} className="bg-red-300 rounded-lg p-4 text-white font-bold">Submit</button>
+    </div>:""}
     </div>
   )
 }

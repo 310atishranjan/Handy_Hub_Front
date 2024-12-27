@@ -12,6 +12,7 @@ import Login from './components/Login';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddWorkforce from './components/AddWorkforce';
+import Rating from './components/Rating';
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
           <Route path="/pay" element={<Pay/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/addworkforce' element={<AddWorkforce/>}/>
+          <Route path='/rating' element={<Rating/>}/>
           </Routes>
          
           <ToastContainer />
