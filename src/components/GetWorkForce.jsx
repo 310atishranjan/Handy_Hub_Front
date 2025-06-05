@@ -2,6 +2,8 @@ import { useEffect,useState } from "react"
 import axios from "axios";
 import { toast } from "react-toastify";
 import { SlUser } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
+
 const GetWorkForce = () => {
   const [workforce,setworkforce]=useState([]);
   const [search,setsearch]=useState('');
@@ -22,6 +24,10 @@ const GetWorkForce = () => {
     toast.error("unable to fetch");
   }
   },[]);
+  const nav=useNavigate();
+  const handleSubmit=(val)=>{
+    nav('/contact',{ state:val });
+  }
   const filteredWorkforce = search
   ? workforce.filter((element) => element.work.toLowerCase().includes(search.toLowerCase()))
   : workforce;
@@ -43,10 +49,15 @@ const GetWorkForce = () => {
                     <h1 className="text-center"> S.No. {index+1}</h1></div>
                   <h1 className="font-bold mb-1 text-black">WorkForce_Id: {element.workforceid}</h1>
                   <h1 className="font-semibold mb-1 ">Name: {element.name}</h1>
-                  <h3 className="font-semibold mb-1">ContactInfo: {element.mobileNo}</h3>
-                  <h2 className="font-semibold mb-1 ">Work: {element.work}</h2>
-                  <h4 className="font-semibold mb-1 ">WorkExperiences: {element.workexperiences}</h4>
-                  <h5 className="font-semibold mb-1 ">WorkPay: {element.workpay}</h5>
+                  <h1 className="font-semibold mb-1">Contact-Info: {element.mobileNo}</h1>
+                  <h1 className="font-semibold mb-1 ">Work: {element.work}</h1>
+                  <h1 className="font-semibold mb-1 ">WorkExperiences: {element.workexperiences} Years</h1>
+                  <h1 className="font-semibold mb-1 ">WorkPay: {element.workpay} per hour</h1>
+                  <div>
+                    <h1>Rating: {element.rating}</h1>
+                  </div>
+                  <div className="flex justify-center items-center mt-2">
+                     <button className="border-2 px-4 py-2 bg-purple-500 rounded-md hover:bg-green-400" onClick={()=>handleSubmit(element.workforceid)}>Call Now</button> </div>
                   </div>
                 </div>
                 </>

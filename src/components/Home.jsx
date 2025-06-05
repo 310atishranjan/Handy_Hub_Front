@@ -24,6 +24,7 @@ const Home = () => {
       <div className="text-white border-2 inline-block rounded-md bg-gray-500 p-1 mt-6"><button onClick={()=>{nav('/pay')}}>Pay After Service</button></div>
       {localStorage.getItem("token")?
       <div className="text-white border-2 inline-block rounded-md bg-gray-500 p-1 mt-6"><button onClick={()=>{nav('/addworkforce')}}>Add WorkForce</button></div>:""}
+      <div className="text-white border-2 inline-block rounded-md bg-gray-500 p-1 mt-6"><button onClick={()=>{nav('/RequestService')}}>Request For Join</button></div>
     </div>
     <div className="md: mt-10 mr-2 justify-center items-center"><img src="/work-hub1.jpg" className="h-92 w-96"></img></div>
    </div>

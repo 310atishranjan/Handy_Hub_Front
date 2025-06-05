@@ -1,6 +1,6 @@
 import {useState } from 'react';
 import {Link} from "react-scroll";
-// import {Link as LL} from "react-router-dom";
+import {Link as LL} from "react-router-dom";
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Login from './Login';
 import LoginPage from './Login_page';
@@ -24,7 +24,8 @@ const Navbar = () => {
         </div>
         <div className={show ? "navLinks showmenu":"navLinks"}>
         <div className='links'>
-          <Link to="home" spy={true} smooth={true} duration={500}>Home</Link>
+          {/* <Link to="home" spy={true} smooth={true} duration={500}>Home</Link> */}
+          <LL to="/">Home</LL>
           <Link to="about" spy={true} smooth={true} duration={500}>About</Link>
           <Link to="services" spy={true} smooth={true} duration={500}>Services</Link>
           <Link to="contact" spy={true} smooth={true} duration={500}>Contact</Link>

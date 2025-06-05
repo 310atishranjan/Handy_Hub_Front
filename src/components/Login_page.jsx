@@ -6,7 +6,7 @@ const MODAL_STYLES = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  backgroundColor: 'rgba(153, 219, 239, 0.5)',
   zIndex: 1000,
   padding: '20px',
   borderRadius: '8px',

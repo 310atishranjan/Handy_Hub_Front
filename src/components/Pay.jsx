@@ -1,6 +1,8 @@
 import {useState,useEffect} from 'react'
 import axios from "axios";
 import { toast } from 'react-toastify';
+import DropIn from "braintree-web-drop-in-react";
+import { useNavigate } from "react-router-dom";
 const Pay = () => {
     const [hourtowork,sethourtowork]=useState('');
     const [workpay,setworkpay]=useState('');
@@ -11,12 +13,35 @@ const Pay = () => {
     const [work,setwork]=useState('');
     const [workforceid,setworkforceid]=useState('');
     const [rating,setrating]=useState(false);
+    const [showpayment,setshowpayment]=useState(false);
+    const [clientToken,setToken]=useState("");
+    const [instance,setinstance]=useState("");
+    
+    const nav=useNavigate();
+    const getToken=async()=>{
+      try{
+        const {data}=await axios.get("http://localhost:5000/api/v1/work/token");
+        console.log(data)
+        setToken(data?.clientToken);
+      }catch(err){
+        console.log(err);
+      }
+    }
+    useEffect(()=>{
+      getToken();
+    },[])
     const handleSubmit=async(e)=>{
       e.preventDefault();
+      if (!instance) {
+        toast.error("Payment instance is not ready");
+        return;
+    }
       try{
+        const { nonce } = await instance.requestPaymentMethod();
+        console.log(nonce);
         const response = await axios.post(
           "https://handy-hub-backened-2-z771.onrender.com/api/v1/work/pay",
-          { name,address,mobileNo,work,workforceid,totalamount,workpay,hourtowork},
+          { name,address,mobileNo,work,workforceid,totalamount,workpay,hourtowork,nonce },
           {
             withCredentials: true,
             headers: { "Content-Type": "application/json" },
@@ -26,12 +51,12 @@ const Pay = () => {
         setaddress('');
         setmobileNo('');
         setwork('');
-        // setworkforceid('');
+        setworkforceid('');
         settotal('');
         setworkpay('');
         sethourtowork('');
         toast.success(response.data.message);
-        // nav('');
+        nav('/');
         setrating(true);
       }catch(err){
         toast.error("pay failed");
@@ -70,7 +95,19 @@ const Pay = () => {
             <div><input value={workforceid} onChange={(e)=>{setworkforceid(e.target.value)}} type="number" placeholder='WorkForce_Id'  className='h-12 w-96 pl- pr- text-center rounded'></input></div>
             <div><h1 className='text-center'>No of Hour work</h1><input placeholder='Work per hour' value={hourtowork} type="number" onChange={(e)=>{sethourtowork(Number(e.target.value))}}className='h-12 w-96 pl- pr- text-center rounded'></input></div>
             <div><h1 className='text-center'>Pay Price per hour</h1><input placeholder='Pay Prices of Worker' value={workpay} type="number" onChange={(e)=>{setworkpay(Number(e.target.value))}} className='h-12 w-96 pl- pr- text-center rounded'></input></div>
-            <div><h1 className='text-center'>Total Amount: </h1><input placeholder={`${totalamount}`} value={totalamount} onChange={(e)=>{settotal(e.target.value)}} className='h-12 w-96 pl- pr- text-center rounded'></input></div>
+            <div><h1 className='text-center'>Total Amount: </h1><input placeholder={`${totalamount}`} value={totalamount} className='h-12 w-96 pl- pr- text-center rounded' readOnly></input></div>
+            <div><h1 className='text-center'>Make Payment Online</h1><input className='h-10 w-8' type="checkbox" checked={showpayment} onChange={()=>{setshowpayment(!showpayment)}}></input></div>
+            {showpayment&&clientToken ? (
+                <DropIn
+                    options={{
+                        authorization: clientToken,
+                        paypal: { flow: 'vault' },
+                    }}
+                    onInstance={(instance) => setinstance(instance)}
+                />
+            ) : (
+                <div>Loading payment options...</div>
+            )}
             <div><button className='bg-red-300 w-28 h-9 rounded-md' type="submit">Pay</button></div>
 
         </div>
@@ -89,6 +126,7 @@ const Pay = () => {
         </div>
         <button onClick={handleSubmitR} className="bg-red-300 rounded-lg p-4 text-white font-bold">Submit</button>
     </div>:""}
+    
     </div>
   )
 }
