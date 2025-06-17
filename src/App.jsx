@@ -16,9 +16,11 @@ import Rating from './components/Rating';
 import RequestService from './components/RequestService';
 import Navbar from './components/Navbar';
 import Bank_com from './components/Bank_com';
-
+import Sign_up from './components/Sign_up';
+import { useEffect } from 'react';
+import axios from 'axios';
 function App() {
-  
+ 
   return (
     <>
       <Router>
@@ -45,6 +47,7 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path='/services' element={<Services/>}/>
           <Route path='/bank' element={<Bank_com/>}/>
+          <Route path='/sign_up' element={<Sign_up/>}/>
           </Routes>
           
           <ToastContainer />
